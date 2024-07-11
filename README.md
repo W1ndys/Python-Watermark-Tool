@@ -81,7 +81,7 @@ color_hex = "#6e6e6e "
 
 ## 注意事项
 
-- 请确保你指定的字体文件路径（如 `simkai.ttf`）是正确的。
+- 请确保你指定的字体文件路径（如 `simkai.ttf`）是正确的。Windows 下可以在目录`C:\Windows\Fonts`中找到系统自带的字体。
 - 支持的图片格式包括 PNG、JPG 和 JPEG。
 
 ## TODO
