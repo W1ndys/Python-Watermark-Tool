@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
+import math
 
 
 # 将十六进制颜色代码转换为RGBA元组的函数
@@ -48,9 +49,20 @@ def add_watermark(
         padded_text_width = text_width + padding * 2
         padded_text_height = text_height + padding * 2
 
+        # 计算旋转后图像的尺寸
+        angle_rad = math.radians(angle)
+        rotated_width = int(
+            abs(padded_text_width * math.cos(angle_rad))
+            + abs(padded_text_height * math.sin(angle_rad))
+        )
+        rotated_height = int(
+            abs(padded_text_width * math.sin(angle_rad))
+            + abs(padded_text_height * math.cos(angle_rad))
+        )
+
         # 在图片上添加多个水印
-        for x in range(0, original.width, text_width + spacing):
-            for y in range(0, original.height, text_height + spacing):
+        for x in range(0, original.width, rotated_width + spacing):
+            for y in range(0, original.height, rotated_height + spacing):
                 text_img = Image.new(
                     "RGBA", (padded_text_width, padded_text_height), (255, 255, 255, 0)
                 )
@@ -91,8 +103,12 @@ def batch_add_watermark(
                 color_rgba,
             )
             print(f"Processed: {filename}")
-        # 打开输出目录
+
+    # 打开输出目录
+    if os.name == "nt":
         os.startfile(output_dir)
+    elif os.name == "posix":
+        os.system(f"xdg-open {output_dir}")
 
 
 # 设置输入目录和输出目录
@@ -101,9 +117,9 @@ output_dir = "output"
 watermark_text = "https://github.com/W1ndys/Python-Watermark-Tool"
 
 # 字体大小、角度、间隔和颜色（使用十六进制颜色代码）
-font_size = 40
-angle = 0
-spacing = 50
+font_size = 30
+angle = 10
+spacing = 5
 color_hex = "#6e6e6e"
 
 # 批量添加水印
