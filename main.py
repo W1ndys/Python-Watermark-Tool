@@ -98,11 +98,11 @@ def batch_add_watermark(
 # 设置输入目录和输出目录
 input_dir = "input"
 output_dir = "output"
-watermark_text = "https://blog.w1ndys.top"
+watermark_text = "https://github.com/W1ndys/Python-Watermark-Tool"
 
 # 字体大小、角度、间隔和颜色（使用十六进制颜色代码）
 font_size = 40
-angle = 30
+angle = 0
 spacing = 50
 color_hex = "#6e6e6e"
 
